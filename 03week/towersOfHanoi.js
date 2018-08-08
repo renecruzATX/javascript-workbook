@@ -13,33 +13,60 @@ let stacks = {
   c: []
 };
 
-function printStacks() {
+const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
 
-function movePiece() {
-  // Your code here
+const movePiece = (startStack, endStack) => {
+  //use push and pop to move the pieces from stack to stack
+  return stacks[endStack.toString()].push(stacks[startStack.toString()].pop());
+}
+
+//a legal move in towersOfHanoi can only be made if there is an empty stack or if
+//the destPiece is larger than the startPiece
+const isLegal = (startStack, endStack) => {
+  // Use length to find the end element in each array to compare against and check if legal move
+  const startPiece = stacks[startStack.toString()][stacks[startStack.toString()].length-1];
+  const destPiece = stacks[endStack.toString()][stacks[endStack.toString()].length-1];
+
+  //The startPiece can move to an empty stack or on top of a destPiece that is larger
+  return stacks[endStack.toString()].length === 0 || startPiece < destPiece;
 
 }
 
-function isLegal() {
-  // Your code here
-
+//Win state for towersOfHanoi means stack b = [4,3,2,1]
+const checkForWin = () => {
+  //We will join stack b and check if it's equal to the winning joined string
+  return stacks['b'].join('') === '4321';
 }
 
-function checkForWin() {
-  // Your code here
-
+//resets the stacks to the beginning state to start over
+const resetGame = () => {
+  stacks = {a: [4, 3, 2, 1], b: [],c: []};
 }
 
-function towersOfHanoi(startStack, endStack) {
-  // Your code here
+const towersOfHanoi = (startStack, endStack) => {
+  if (startStack === 'reset') {
+    resetGame();
+  }else {
+    //check if move is legal before moving on
+    if (isLegal(startStack, endStack)) {
+      //If the move is legal go ahead and run movePiece function
+      movePiece(startStack, endStack);
+    }else {
+      //Let the user know to make only legal moves and do nothing else
+      console.log('Moves can only be made to an empty stack or on top of a larger piece');
+    }
 
-}
+    if (checkForWin()) {
+      console.log('YOU WIN!!!!!!  Please type "reset" into start stack: if you want to play again');
+    }
+  }
+};
 
-function getPrompt() {
+const getPrompt = () => {
   printStacks();
   rl.question('start stack: ', (startStack) => {
     rl.question('end stack: ', (endStack) => {
@@ -86,7 +113,12 @@ if (typeof describe === 'function') {
       assert.equal(checkForWin(), false);
     });
   });
-
+  describe('#resetGame()', () => {
+    it('should reset the stacks', () => {
+      stacks = {a: [4, 3, 2, 1], b: [],c: []};
+      assert.equal(resetGame(), true);
+    });
+  });
 } else {
 
   getPrompt();
