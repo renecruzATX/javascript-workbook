@@ -2,45 +2,72 @@
 
 const assert = require('assert');
 
-const breweries = [
-  {rank: 4, name: 'ABW', specialty: "Brown Ales"},
-  {rank: 2, name: 'Lazarus', specialty: "Saisons"},
-  {rank: 1, name: 'Hops and Grain', specialty:"IPAs"},
-  {rank: 5, name: 'Blue Owl', specialty: "Sours"},
-  {rank: 3, name: 'Friends and Allies', specialty: "IPAs"},
-  {rank: 6, name: 'Black Star Co-op', specialty: "DIPAs"},
-  {rank: 7, name: 'Strange Land', specialty: "Alts"}
-];
-
 //1. Create a forEach() function that takes an array of items and a function
 //that runs the function arr.length number of times.
-breweries.forEach((brewery) => {
-  console.log(brewery.name)
-});
+
+const forEach =(array,callback)=>{
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback){
+      console.log('callback present')
+      callback(array[i]);
+    }
+  }
+};
+
 
 //Create a map() function that takes an array of items and a function
 //that returns an array with each item manipulated by that function.
-breweries.map((brewery) => {
-  return brewery.name + ' Brewery';
-});
+const map=(array,callback)=>{
+  const mappedArray = [];
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback){
+      console.log('callback present')
+      mappedArray.push(callback(array[i]));
+    }
+  }
+  return mappedArray;
+};
 
 //Create a filter() function that takes an array of items and a function that returns an array
 //with only the items that return true in the function.
-breweries.filter((brewery) => {
-  return brewery.specialty === 'IPAs'
-});
+const filter =(array,callback)=>{
+  const filteredArray=[];
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback(array[i])){
+      console.log('callback present')
+      filteredArray.push(array[i]);
+    }
+  }
+  return filteredArray;
+};
 
 //Create a some() function that takes an array of items and a function
 //that returns true or false if any of the items return true in the function.
-breweries.some((brewery) => {
-  return brewery.specialty === 'Lagers';
-});
+const some =(array,callback)=>{
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback(array[i])) {
+      return true
+    }
+  }
+  return false;
+};
 
 //Create an every() function that takes an array of items and a function
 //that returns true or false if all of the items return true in the function.
-breweries.every((brewery) => {
-  return brewery.name.indexOf('Hops')
-});
+const every =(array,callback)=>{
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (!callback(array[i])){
+      console.log('callback present');
+      return false;
+    }
+  }
+  return true;
+};
 
 if (typeof describe === 'function') {
 
