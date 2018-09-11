@@ -2,25 +2,72 @@
 
 const assert = require('assert');
 
-function forEach(arr, callback) {
-  // Your code here
-}
+//1. Create a forEach() function that takes an array of items and a function
+//that runs the function arr.length number of times.
 
-function map(arr, callback) {
-  // Your code here
-}
+const forEach =(array,callback)=>{
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback){
+      console.log('callback present')
+      callback(array[i]);
+    }
+  }
+};
 
-function filter(arr, callback) {
-  // Your code here
-}
 
-function some(arr, callback) {
-  // Your code here
-}
+//Create a map() function that takes an array of items and a function
+//that returns an array with each item manipulated by that function.
+const map=(array,callback)=>{
+  const mappedArray = [];
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback){
+      console.log('callback present')
+      mappedArray.push(callback(array[i]));
+    }
+  }
+  return mappedArray;
+};
 
-function every(arr, callback) {
-  // Your code here
-}
+//Create a filter() function that takes an array of items and a function that returns an array
+//with only the items that return true in the function.
+const filter =(array,callback)=>{
+  const filteredArray=[];
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback(array[i])){
+      console.log('callback present')
+      filteredArray.push(array[i]);
+    }
+  }
+  return filteredArray;
+};
+
+//Create a some() function that takes an array of items and a function
+//that returns true or false if any of the items return true in the function.
+const some =(array,callback)=>{
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (callback(array[i])) {
+      return true
+    }
+  }
+  return false;
+};
+
+//Create an every() function that takes an array of items and a function
+//that returns true or false if all of the items return true in the function.
+const every =(array,callback)=>{
+  for (let i=0; i<array.length;i++){
+    console.log(array[i]);
+    if (!callback(array[i])){
+      console.log('callback present');
+      return false;
+    }
+  }
+  return true;
+};
 
 if (typeof describe === 'function') {
 
